@@ -42,16 +42,45 @@ function App() {
           initialNumberSting = "undefined";
           setCurrentOperand(0);
         } else {
-          if (mathOperation === "+") {
-            let score =
-              previousOperand + parseFloat(currentDiv.current.innerText);
-            console.log(score);
-            setPreviousOperand(score);
+          if (e.target.value === "+") {
+            setPreviousOperand(
+              parseFloat(previousDiv.current.innerText) +
+                parseFloat(currentDiv.current.innerText)
+            );
+            setMathOperation(e.target.value);
+            initialNumberSting = "undefined";
+            setCurrentOperand(0);
+          } else if (e.target.value === "-") {
+            setPreviousOperand(
+              parseFloat(previousDiv.current.innerText) -
+                parseFloat(currentDiv.current.innerText)
+            );
+            setMathOperation(e.target.value);
+            initialNumberSting = "undefined";
+            setCurrentOperand(0);
+          } else if (e.target.value === "x") {
+            setPreviousOperand(
+              parseFloat(previousDiv.current.innerText) *
+                parseFloat(currentDiv.current.innerText)
+            );
+            setMathOperation(e.target.value);
+            initialNumberSting = "undefined";
+            setCurrentOperand(0);
+          } else if (e.target.value === "÷") {
+            setPreviousOperand(
+              parseFloat(previousDiv.current.innerText) /
+                parseFloat(currentDiv.current.innerText)
+            );
             setMathOperation(e.target.value);
             initialNumberSting = "undefined";
             setCurrentOperand(0);
           }
         }
+      } else if (e.target.value === "=") {
+        setCurrentOperand(parseFloat(previousDiv.current.innerText));
+        setPreviousOperand(0);
+        setMathOperation(null);
+        initialNumberSting = "undefined";
       }
     });
   });
