@@ -15,6 +15,10 @@ function App() {
     setPreviousOperand(0);
   });
 
+  function calc(firstNumOpertaion, SecondNum) {
+    return eval(`${firstNumOpertaion} ${SecondNum}`);
+  }
+
   useEffect(() => {}, [currentOperand]);
   useEffect(() => {}, [previousOperand]);
   useEffect(() => {}, [mathOperation]);
@@ -33,8 +37,8 @@ function App() {
       } else if (
         e.target.value === "+" ||
         e.target.value === "-" ||
-        e.target.value === "x" ||
-        e.target.value === "÷"
+        e.target.value === "*" ||
+        e.target.value === "/"
       ) {
         if (previousDiv.current.innerText === "0") {
           setPreviousOperand(parseFloat(currentDiv.current.innerText));
@@ -42,45 +46,20 @@ function App() {
           initialNumberSting = "undefined";
           setCurrentOperand(0);
         } else {
-          if (e.target.value === "+") {
-            setPreviousOperand(
-              parseFloat(previousDiv.current.innerText) +
-                parseFloat(currentDiv.current.innerText)
-            );
-            setMathOperation(e.target.value);
-            initialNumberSting = "undefined";
-            setCurrentOperand(0);
-          } else if (e.target.value === "-") {
-            setPreviousOperand(
-              parseFloat(previousDiv.current.innerText) -
-                parseFloat(currentDiv.current.innerText)
-            );
-            setMathOperation(e.target.value);
-            initialNumberSting = "undefined";
-            setCurrentOperand(0);
-          } else if (e.target.value === "x") {
-            setPreviousOperand(
-              parseFloat(previousDiv.current.innerText) *
-                parseFloat(currentDiv.current.innerText)
-            );
-            setMathOperation(e.target.value);
-            initialNumberSting = "undefined";
-            setCurrentOperand(0);
-          } else if (e.target.value === "÷") {
-            setPreviousOperand(
-              parseFloat(previousDiv.current.innerText) /
-                parseFloat(currentDiv.current.innerText)
-            );
-            setMathOperation(e.target.value);
-            initialNumberSting = "undefined";
-            setCurrentOperand(0);
-          }
+          setPreviousOperand(
+            calc(previousDiv.current.innerText, currentDiv.current.innerText)
+          );
+          setMathOperation(e.target.value);
+          initialNumberSting = "undefined";
+          setCurrentOperand(0);
         }
       } else if (e.target.value === "=") {
-        setCurrentOperand(parseFloat(previousDiv.current.innerText));
+        initialNumberSting = "undefined";
+        setCurrentOperand(
+          calc(previousDiv.current.innerText, currentDiv.current.innerText)
+        );
         setPreviousOperand(0);
         setMathOperation(null);
-        initialNumberSting = "undefined";
       }
     });
   });
@@ -90,6 +69,7 @@ function App() {
       <div className="output">
         <div ref={previousDiv} className="previous-operand">
           {previousOperand}
+          {mathOperation}
         </div>
         <div ref={currentDiv} id="display" className="current-operand">
           {currentOperand}
@@ -99,8 +79,8 @@ function App() {
         AC
       </button>
       <button ref={delButton}>DEL</button>
-      <button value="÷" id="divide">
-        ÷
+      <button value="/" id="divide">
+        /
       </button>
       <button value="1" id="one">
         1
@@ -111,8 +91,8 @@ function App() {
       <button value="3" id="three">
         3
       </button>
-      <button value="x" id="multiply">
-        x
+      <button value="*" id="multiply">
+        *
       </button>
       <button value="4" id="four">
         4
