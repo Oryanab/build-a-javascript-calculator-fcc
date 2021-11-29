@@ -1,8 +1,6 @@
 import react, { useState, useRef, useEffect } from "react";
 
 function App() {
-  // const delButton = useRef(null);
-  // const acButton = useRef(null);
   const previousDiv = useRef(null);
   const currentDiv = useRef(null);
 
@@ -85,20 +83,10 @@ function App() {
           {currentOperand}
         </div>
       </div>
-      <button
-        // ref={acButton}
-        value="AC"
-        id="clear"
-        className="span-two"
-      >
+      <button value="AC" id="clear" className="span-two">
         AC
       </button>
-      <button
-        value="DEL"
-        // ref={delButton}
-      >
-        DEL
-      </button>
+      <button value="DEL">DEL</button>
       <button value="/" id="divide">
         /
       </button>
