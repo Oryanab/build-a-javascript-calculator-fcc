@@ -1,8 +1,8 @@
 import react, { useState, useRef, useEffect } from "react";
 
 function App() {
-  const delButton = useRef(null);
-  const acButton = useRef(null);
+  // const delButton = useRef(null);
+  // const acButton = useRef(null);
   const previousDiv = useRef(null);
   const currentDiv = useRef(null);
 
@@ -47,7 +47,8 @@ function App() {
           setCurrentOperand(0);
         } else {
           setPreviousOperand(
-            calc(previousDiv.current.innerText, currentDiv.current.innerText)
+            previousDiv.current.innerText +
+              parseFloat(currentDiv.current.innerText)
           );
           setMathOperation(e.target.value);
           initialNumberSting = "undefined";
@@ -60,6 +61,15 @@ function App() {
         );
         setPreviousOperand(0);
         setMathOperation(null);
+      } else if (e.target.value === "AC") {
+        initialNumberSting = "undefined";
+        setCurrentOperand(0);
+        setPreviousOperand(0);
+        setMathOperation(null);
+      } else if (e.target.value === "DEL") {
+        setCurrentOperand(
+          parseFloat(initialNumberSting.split("undefined")[1].slice(0, -1))
+        );
       }
     });
   });
@@ -75,10 +85,20 @@ function App() {
           {currentOperand}
         </div>
       </div>
-      <button ref={acButton} id="clear" className="span-two">
+      <button
+        // ref={acButton}
+        value="AC"
+        id="clear"
+        className="span-two"
+      >
         AC
       </button>
-      <button ref={delButton}>DEL</button>
+      <button
+        value="DEL"
+        // ref={delButton}
+      >
+        DEL
+      </button>
       <button value="/" id="divide">
         /
       </button>
