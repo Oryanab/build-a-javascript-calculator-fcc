@@ -48,6 +48,7 @@ body {
   padding: 0.75rem;
   word-wrap: break-word;
   word-break: break-all;
+  height: 15vh;
 }
 
 .output .previous-operand {
